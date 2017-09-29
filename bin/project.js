@@ -2,6 +2,23 @@ const fs = require('fs');
 
 const configJsFile = "var http = require('http');\nvar fs = require('fs');";
 
+function packageJsonFile(projectName) {
+    return `{
+    "name": "` + projectName + '", \n    "version": "0.0.2",' +
+    `\n    "description": "A client help on initialize projets in NodeJS.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \\"Error: no test specified\\" && exit 1"
+    },
+    "keywords": [
+        "demo"
+    ],
+    "author": "Luiz Henrique de F. R. Araújo <luizhbd@gmail.com> (http://tir4y.me)",
+    "license": "ISC",
+    "dependencies": {}
+}`;
+}
+
 const statusCallback = function (error, file_name, callback) {
     if (error) {
         console.log("\x1b[31m",file_name + ': ERROR','\x1b[0m');
@@ -14,34 +31,46 @@ const statusCallback = function (error, file_name, callback) {
     }
 };
 
-exports.createApiProject =  (projectName) => {
+exports.createApiProject =  async(projectName) => {
     //Create Folders
-    fs.mkdir("src", function(error) {
-        statusCallback(error, 'src/');
+    let projectNameFolder = "";
+    if(projectName) {
+        projectNameFolder = projectName + "/";
+        await fs.mkdir(projectNameFolder, function(error) {
+            statusCallback(error, projectNameFolder);
+        });
+    }
+
+    await fs.mkdir(projectNameFolder + "src", function(error) {
+        statusCallback(error, projectNameFolder + 'src/');
     });
 
-    fs.mkdir("bin", function(error) {
-        statusCallback(error, 'bin/');
+    await fs.mkdir(projectNameFolder + "bin", function(error) {
+        statusCallback(error, projectNameFolder + 'bin/');
     });
 
-    fs.mkdir("src/controllers", function(error) {
-        statusCallback(error, 'src/controllers');
+    await fs.mkdir(projectNameFolder + "src/controllers", function(error) {
+        statusCallback(error, projectNameFolder + 'src/controllers');
     });
 
-    fs.mkdir("src/routes", function(error) {
-        statusCallback(error, 'src/routes');
+    await fs.mkdir(projectNameFolder + "src/routes", function(error) {
+        statusCallback(error, projectNameFolder + 'src/routes');
     });
 
-    fs.mkdir("src/models", function(error) {
-        statusCallback(error, 'src/models');
+    await fs.mkdir(projectNameFolder + "src/models", function(error) {
+        statusCallback(error, projectNameFolder + 'src/models');
     });
 
     //Create Files
-    fs.writeFile('src/app.js', configJsFile, function (error) {
-        statusCallback(error, 'src/server.js');
+    await fs.writeFile(projectNameFolder + 'src/app.js', configJsFile, function (error) {
+        statusCallback(error, projectNameFolder + 'src/server.js');
     });
 
-    fs.writeFile('src/config.js', configJsFile, function (error) {
-        statusCallback(error, 'src/config.js');
+    await fs.writeFile(projectNameFolder + 'src/config.js', configJsFile, function (error) {
+        statusCallback(error, projectNameFolder + 'src/config.js');
+    });
+
+    await fs.writeFile(projectNameFolder + 'package.json', packageJsonFile(projectName), function (error) {
+        statusCallback(error, projectNameFolder + 'package.json');
     });
 }

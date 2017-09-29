@@ -26,9 +26,16 @@ switch(myArgs[0]) {
                 break;
         };
         break;
+    case '--help':
+        console.log("Exemplos:");
+        console.log("\nt4y --new --t=api --name ProjectName");
+        console.log("\n--new: Cria um novo projeto");
+        console.log("--t=api: Utilzia o template API, com rotas, controllers, models...");
+        console.log("--name NOME: (Não Obrigatório) Informa um nome para o projeto, criando o folder. ");
+        break;
     default:
         console.log("\x1b[31m","\n\nERROR",'\x1b[0m');
-        console.log("Nenhum parâmetro encontrado!")
+        console.log("Nenhum parâmetro encontrado!");
         console.log("\n\nDigite --help para saber os comandos \n\n");
         break;
 };
