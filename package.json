@@ -1,0 +1,18 @@
+{
+  "name": "t4y-cli",
+  "version": "0.0.2",
+  "description": "A client help on initialize projets in NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "demo"
+  ],
+  "author": "Luiz Henrique de F. R. Araújo <luizhbd@gmail.com> (http://tir4y.me)",
+  "license": "ISC",
+  "bin": {
+    "t4y": "index.js"
+  },
+  "dependencies": {}
+}
