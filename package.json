@@ -1,6 +1,6 @@
 {
   "name": "t4y-cli",
-  "version": "0.0.2",
+  "version": "0.1.3",
   "description": "A client help on initialize projets in NodeJS.",
   "main": "index.js",
   "scripts": {
